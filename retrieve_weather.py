@@ -3,12 +3,11 @@
 # INFO:	
 
 import requests
-from html.parser import HTMLParser
 from bs4 import BeautifulSoup
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 import re
 
-html = ''	
+html = ''
 resp = requests.get('https://freemeteo.gr/kairos/litoxoro/7-imeres/pinakas/?gid=735399&language=greek&country=greece')
 if resp.ok:
     html = resp.text
@@ -54,9 +53,9 @@ for i in range(0, 7):
 	date = (soup.find_all('div', attrs={'class':'day'})[i].findChildren()[0].findChildren()[1].get_text())
 	
 
-	max = (soup.find_all('div', attrs={'class':'day'})[i].findChildren()[5].findChildren()[0].get_text())
+	maxT = (soup.find_all('div', attrs={'class':'day'})[i].findChildren()[5].findChildren()[0].get_text())
 
-	min = (soup.find_all('div', attrs={'class':'day'})[i].findChildren()[5].findChildren()[1].get_text())
+	minT = (soup.find_all('div', attrs={'class':'day'})[i].findChildren()[5].findChildren()[1].get_text())
 	
 	
 	wind = (soup.find_all('div', attrs={'class':'wind'})[i].get_text())
@@ -69,8 +68,8 @@ for i in range(0, 7):
 	
 	d.text((counter,20), day, font=unicode_font_header, fill=(255,255,255))
 	d.text((counter,60), date + " 2019", font=unicode_font_medium, fill=(255,145,0))
-	d.text((counter,200), max, font=unicode_font_big, fill=(255,255,255))
-	d.text((counter,240), min, font=unicode_font_small, fill=(185,185,185))
+	d.text((counter,200), maxT, font=unicode_font_big, fill=(255,255,255))
+	d.text((counter,240), minT, font=unicode_font_small, fill=(185,185,185))
 	d.text((counter,460), w[0]+"° / " + w[1], font=unicode_font_medium, fill=(255,255,255))
 	compass[i] = round(((int(w[0])*10) / 225))
 	if compass[i] == 16: compass[i]=0
@@ -80,22 +79,22 @@ for i in range(0, 7):
 	d.text((counter,510), extra + " mm", font=unicode_font_medium, fill=(185,185,185))
 	
 	count2=0
-	# if(len(words)/2==5):
-		# count2=0
-	# elif(len(words)/2==4):
-		# count2=10
-	# elif(len(words)/2==3):
-		# count2=20
-	# elif(len(words)/2==2):
-		# count2=30
-	# elif(len(words)/2==1):
-		# count2=40
+##	# if(len(words)/2==5):
+##		# count2=0
+##	# elif(len(words)/2==4):
+##		# count2=10
+##	# elif(len(words)/2==3):
+##		# count2=20
+##	# elif(len(words)/2==2):
+##		# count2=30
+##	# elif(len(words)/2==1):
+##		# count2=40
 		
 	for x in range (0, len(words)-1, 2):
 		d.text((counter,280+count2),  words[x] + " " + words[x+1], font=unicode_font_medium, fill=(185,185,185))
 		count2+=20
 		
-	if (len(words)%2==1): 
+	if (len(words)%2==1):
 		d.text((counter,280+count2),  words[len(words)-1], font=unicode_font_medium, fill=(185,185,185))
 			
 	
@@ -104,7 +103,7 @@ for i in range(0, 7):
 
 	# d.line([( counter - 50, 50), ( counter - 50, img.size[1] - 50)], fill=(55,55,55), width=4)
 	counter += 140
-	
+
 for i in range(0, 14):
 	icon = (soup.find_all('div', attrs={'class':'icon'})[i].findChildren()[0])
 	if(i%2 == 0):
@@ -122,7 +121,7 @@ background.save('weather.png')
 
 counter = 50
 background = Image.open("weather.png")
-for x in range (0, 7):	
+for x in range (0, 7):
 	foreground = Image.open("compass/"+str(compass[x])+".png")
 	background.paste(foreground, (counter, 400), foreground)
 	counter += 140
