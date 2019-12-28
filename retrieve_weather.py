@@ -1,6 +1,6 @@
 # Author: 	Achilleas Papakonstantinou (A.S.M. 1490003982013)
 # Date:		4/6/2019
-# INFO:	
+# INFO:
 
 import requests
 from bs4 import BeautifulSoup
@@ -97,7 +97,7 @@ for i in range(0, 7):
 	if (len(words)%2==1):
 		d.text((counter,280+count2),  words[len(words)-1], font=unicode_font_medium, fill=(185,185,185))
 			
-	
+
 	# d.text((counter,1200), "Βαθμός κακοκαιρίας: ", font=unicode_font_big, fill=(255,245,0))
 	# d.text((counter,1250), icon[0], font=unicode_font_big, fill=(255,245,0))
 
@@ -113,7 +113,7 @@ img.save('weather.png')
 
 counter = 15
 background = Image.open("weather.png")
-for x in range (0, 7):	
+for x in range (0, 7):
 	foreground = Image.open("weather_conditions/"+str(week[x])+".png")
 	background.paste(foreground, (counter, 100), foreground)
 	counter += 142
