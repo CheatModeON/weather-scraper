@@ -1,7 +1,7 @@
 # weather-scrapper
-A weather scrapping tool for Meteo.gr
+A weather scraping tool for Meteo.gr
 
-Instead of just scrapping the weather, it generates an image (with a military camo background) that hold weekly weather data by the time it is generated. 
+Instead of just scraping the weather, it generates an image (with a military camo background) that hold weekly weather data by the time it is generated. 
 
 Perfect for military applications.
 
